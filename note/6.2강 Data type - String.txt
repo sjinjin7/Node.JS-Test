@@ -1,0 +1,14 @@
+6.2강 Data type - String
+https://opentutorials.org/module/3549/21033
+
+참고할만한 사이트 
+https://www.w3schools.com/js/js_syntax.asp
+
+String 타입 => ' '을 사용
+
+
+
+
+mission
+□ 출력
+□ String 데이터 길이 출력
