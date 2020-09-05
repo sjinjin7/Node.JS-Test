@@ -1,0 +1,11 @@
+6강 Data type - Number 9/5
+
+참고사이트
+- https://developer.mozilla.org/ko/docs/Web/JavaScript/Data_structures
+- https://opentutorials.org/module/3549/21031
+
+mission
+□ 숫자 출력
+□ 사칙연산 출력
+□ dir/w(윈도우), ls -al(리눅스)
+□ 특정 폴더에 있는 파일 실행
