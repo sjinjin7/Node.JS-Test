@@ -1,0 +1,28 @@
+18강 App - Not found 오류 구현
+https://opentutorials.org/course/3332/21063
+
+
+ 조건문을 도입하여 우리의 애플리케이션 업그레이드가 목표
+
+
+    // url을 분석하는 코드(url.parse(_url, true))가 어떠한 내용을 담는지 확인하기 위해
+    console.log(url.parse(_url, true));
+
+을 통해서 아래의 결과가 나옴
+
+Url {
+  protocol: null,
+  slashes: null,
+  auth: null,
+  host: null,
+  port: null,
+  hostname: null,
+  hash: null,
+  search: null,
+  query: [Object: null prototype] {},
+  pathname: '/id=HTML',
+  path: '/id=HTML',
+  href: '/id=HTML'
+}
+
+=> path는 쿼리 스트링이 포함, pathname는 쿼리스트링이 존재하더라도 쿼리스트링을 제외한 path만을 보여줌
