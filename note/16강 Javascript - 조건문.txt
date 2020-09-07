@@ -1,0 +1,8 @@
+16강 Javascript - 조건문
+https://opentutorials.org/course/3332/21061
+
+Conditional statement
+조건문은 제어문의 대표적인 사례(또다른 제어문 반복문)
+조건에 따라서 서로다른 코드가 실행되도록 실행 흐름을 제어하는 제어문 
+
+
