@@ -1,0 +1,9 @@
+13강 Javascript - Boolean
+syntax/boolean.js 참고
+https://opentutorials.org/course/3332/21050
+
+이번 강의 배울 것 3가지
+1. Boolean datatype
+2. 비교연산자 Comparison operator
+(이때까지는 산술연산자)
+3. 조건문 Conditional satement
