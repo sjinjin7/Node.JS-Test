@@ -1,0 +1,8 @@
+14강 Javascript - 비교 연산자
+https://opentutorials.org/course/3332/21059
+syntax/comparison.js
+
+Comparison Operator
+
+
+
