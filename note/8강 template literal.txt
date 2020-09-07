@@ -1,0 +1,25 @@
+8강 template literal
+
+띄워쓰기 방법
+	방법1 : 역슬래시
+	특징 
+		- 역슬래시 줄바꿈은 코드상만 줌바꿈이지 표현상에는 바뀌지 않음
+
+	방법 2 : 역슬래시+n(이스케이프 시퀀스)
+	특징 : 약속된 문자
+
+	방법 3 : 그레이브 사용(tempate literal)
+	특징 
+		- 이전 코드와 비교시 줄바꿀대 특수기호(이스케이프 시퀀스) 사용하지 않아도됨
+		- 스트링 내부에 변수를 넣고 싶을 때 복잡한 고정이 사라짐
+		- ${}내부에 변수를 넣어도 되고 연산을 넣어도 가능
+
+
+literal이란?
+	- var a = 1; 1은 숫자라는 1이라는 데이터를 표현하는 literal
+	- var a = '1'; 1은 문자 1이라는 데이터를 표현하는 literal
+	- 정보를 표현하는 방법 or 정보를 표현하는 기호
+
+*특스문자 부르는 법
+https://m.blog.naver.com/PostView.nhn?blogId=leesoyou_com&logNo=110114897376&proxyReferer=https:%2F%2Fwww.google.com%2F
+
