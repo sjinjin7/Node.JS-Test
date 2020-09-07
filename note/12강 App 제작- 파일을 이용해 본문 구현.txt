@@ -1,0 +1,16 @@
+12강 App 제작- 파일을 이용해 본문 구현
+
+목표 : queryString에 따라서 본문의 내용이 변경 되는 웹 애플리케이션 만들기
+
+실습
+1. 폴더 만들기
+2. 각 HTML, CSS, JavaScript 파일을 만들어서 1.html 등에 있는 p태그 내용을 복사 붙여넣기
+3. main.js에 변수 template 에 저장 해놓은 P태그 변환
+	1)     fs.readFile(`data/${queryData.id}`, 'utf8', function(err, data){
+      var description = data;
+    }); 추가
+	2) 해당 메서드 안에 template 변수 옮김
+4. 테스트
+추가. HTML파일에 있는 img태그를 지우고 리로드 없이 브라우저 실행해도 반영됨
+	=> 왜? P태그 내용은 파일을 읽어들여서 반영하는 것이기 때문에
+	=> main.js가 바뀔 경우에는 리로드가 필요함
