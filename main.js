@@ -23,41 +23,73 @@ var app = http.createServer(function(request,response){
     //console.log(queryData.id);  // queryData 객체 안에 있는 id
     // 결과 HTML 나옴
     var pathname = url.parse(_url,true).pathname;
-    var title = queryData.id;
+
 
 
     // url을 분석하는 코드(url.parse(_url, true))가 어떠한 내용을 담는지 확인하기 위해
     //console.log(url.parse(_url, true));
 
     if(pathname === '/'){
-      fs.readFile(`data/${queryData.id}`, 'utf8', function(err, description){
+      if(queryData.id === undefined){
+        fs.readFile(`data/${queryData.id}`, 'utf8', function(err, description){
+          var title = `Welcome`;
+          var description = `Welcome, node.js`;
+          var template = `
+          <!doctype html>
+          <html>
+          <head>
+            <title>WEB1 - ${title}</title>
+            <meta charset="utf-8">
+          </head>
+          <body>
+            <h1><a href="/">WEB</a></h1>
+            <ol>
+              <li><a href="/?id=HTML">HTML</a></li>
+              <li><a href="/?id=CSS">CSS</a></li>
+              <li><a href="/?id=Javascript">JavaScript</a></li>
+            </ol>
+            <h2>${title}</h2>
+            <p>${description}</p>
+          </body>
+          </html>
 
-        var template = `
-        <!doctype html>
-        <html>
-        <head>
-          <title>WEB1 - ${title}</title>
-          <meta charset="utf-8">
-        </head>
-        <body>
-          <h1><a href="/">WEB</a></h1>
-          <ol>
-            <li><a href="/?id=HTML">HTML</a></li>
-            <li><a href="/?id=CSS">CSS</a></li>
-            <li><a href="/?id=Javascript">JavaScript</a></li>
-          </ol>
-          <h2>${title}</h2>
-          <p>${description}</p>
-        </body>
-        </html>
+          `;
 
-        `;
+          response.writeHead(200);
+          response.end(template);
 
-        response.writeHead(200);    // 웹브라우저가 웹서버에 접속 했을 때 웹서버가 응. 그때 웹서버와 웹브라우저 사이에서 잘 됫는지 아니면 에러가 있는지 아니면 이페이지기 다른 곳으로 이사를 갓는지 이러한 중요한 정보를 기계와 기계가 통신하기 위한 아주 간결한 약속.
-        // 200 은 성공적으로 전송
-        response.end(template); //  queryData 결과 값이 화면에 나옴
+        });
+      } else {
+        fs.readFile(`data/${queryData.id}`, 'utf8', function(err, description){
+          var title = queryData.id;
+          var template = `
+          <!doctype html>
+          <html>
+          <head>
+            <title>WEB1 - ${title}</title>
+            <meta charset="utf-8">
+          </head>
+          <body>
+            <h1><a href="/">WEB</a></h1>
+            <ol>
+              <li><a href="/?id=HTML">HTML</a></li>
+              <li><a href="/?id=CSS">CSS</a></li>
+              <li><a href="/?id=Javascript">JavaScript</a></li>
+            </ol>
+            <h2>${title}</h2>
+            <p>${description}</p>
+          </body>
+          </html>
 
-      });
+          `;
+
+          response.writeHead(200);    // 웹브라우저가 웹서버에 접속 했을 때 웹서버가 응. 그때 웹서버와 웹브라우저 사이에서 잘 됫는지 아니면 에러가 있는지 아니면 이페이지기 다른 곳으로 이사를 갓는지 이러한 중요한 정보를 기계와 기계가 통신하기 위한 아주 간결한 약속.
+          // 200 은 성공적으로 전송
+          response.end(template); //  queryData 결과 값이 화면에 나옴
+
+        });
+      }
+
     } else {
       // 에러창을 표시해주고자함
       response.writeHead(404);

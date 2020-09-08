@@ -1,0 +1,10 @@
+19강 App - 홈페이지 구현
+https://opentutorials.org/course/3332/21064
+
+Home 부분은 아직 undefined => 아직 홈에대한 처리가 되어 있지 않음 
+pathname === '/'   => 이 값을 통해서는 Home과 각각의 Page를 구분 할 수 가 없음
+
+ 조건문을 중첩을 통해서 구분이 가능.
+ 구분 기준으로는 queryData.id를 사용. 쿼리 데이터가 존재하지 않는다면 queryData.id또한 값이 존재 하지 않음  => queryData.id 가 undefined 인지에 대한 조건문을 추가 
+
+* 정의 되지 않는 데이터는 'undefined'로 약속 되어 있음 
