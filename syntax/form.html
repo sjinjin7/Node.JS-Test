@@ -1,0 +1,27 @@
+<!--사용자로부터 정보를 input 받는 방법에 대해서 살펴봄-->
+<!-- -->
+<!--
+ 입력한 정보를 action 속성값 주소로 전송하고 싶다는 의미
+ 전송되어지는 태그 각각에 name이 존재해야함
+
+ 전송 버튼을 클릭해보면 해당 url에 쿼리스트링이 생성되어 진 것을 볼 수 있음
+ 하지만
+ CRUD할때 URL에 데이터들이 노출 되는것은 좋지 않음
+ 외부의 누군가가 URL을 통해서 서버를 조작할 수 있게 되기 때문
+
+ 정리하면 서버에서 데이터를 가져올땐 쿼리스트링을 쓰고
+ 서버에 데이터를 생성 수정 삭제 할댄 데이터를 URL로 보내선 절대 안됨
+ 눈에 보이지 않느 방식 즉 POST 방식을 써야함
+ (장점으로는 무수히 많은 대량의 데이터를 보낼수도 있음)
+
+ form의 기본 값은 get 방식(get방식은 송수신되는 데이터 량이 한정 되어 있음)
+-->
+<form action="http://localhost:3000/process_create" method="POST">
+  <p><input type="text" name="title"></p>
+  <p>
+    <textarea name="description" rows="8" cols="80"></textarea>
+  </p>
+  <p>
+    <input type = "submit">
+  </p>
+</form>
