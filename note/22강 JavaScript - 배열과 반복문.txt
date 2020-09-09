@@ -1,0 +1,5 @@
+22강 JavaScript - 배열과 반복문
+https://opentutorials.org/course/3332/21121
+
+배열과 반복문 각각을 보면 크게 할일이 없어보임. 같이 있을 경우 굉장한 도구가됨.
+
