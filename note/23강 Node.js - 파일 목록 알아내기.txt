@@ -1,0 +1,11 @@
+23강 Node.js - 파일 목록 알아내기
+https://opentutorials.org/course/3332/21122
+
+문제의 발견 
+ - 우리의 app은 문제가 잇음. 데이터를 추가를 하면 일일이 코드를 추가해주어야함
+ => 어떻게 컴퓨터가 알아서 하게 할 것인가?
+ => 먼저 파일의 리스트를 어떻게 얻어올것인가???
+	검색 : 'nodejs file list in directory'
+
+
+
