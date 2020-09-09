@@ -1,6 +1,39 @@
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
+
+// HTML에 대한 template
+function templateHTML(title, list, body){
+  return `
+  <!doctype html>
+  <html>
+  <head>
+    <title>WEB1 - ${title}</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <h1><a href="/">WEB</a></h1>
+    ${list}
+    ${body}
+  </body>
+  </html>
+
+  `;
+}
+// list에 대한 template에
+function templateList(filelist){
+  var list = '<ul>';
+  var i = 0;
+  while(i < filelist.length){
+    list = list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`
+    i = i + 1;
+  }
+
+  list = list+'</ul>';
+  return list;
+}
+
+
 // require 요구하다
 // url(fs,http)이라는 것은 요구 한다는 의미
 // 여기서 url(fs, http)는 '모듈'을 의미
@@ -35,31 +68,12 @@ var app = http.createServer(function(request,response){
           //console.log(filelist);  // 파일을 일어오는지 확인하기 위해서
           var title = `Welcome`;
           var description = `Welcome, node.js`;
-          var list = '<ul>';
-          var i = 0;
-          while(i < filelist.length){
-            list = list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`
-            i = i + 1;
-          }
+          var list = templateList(filelist);
 
           list = list+'</ul>';
 
-          var template = `
-          <!doctype html>
-          <html>
-          <head>
-            <title>WEB1 - ${title}</title>
-            <meta charset="utf-8">
-          </head>
-          <body>
-            <h1><a href="/">WEB</a></h1>
-            ${list}
-            <h2>${title}</h2>
-            <p>${description}</p>
-          </body>
-          </html>
-
-          `;
+          var template = templateHTML(title, list,`<h2>${title}</h2>
+          <p>${description}</p>`);  // 기존 var template에 비해 로직에 대한 이해가 더 용이(함수의 이름을 통해) & 코드량도 줄어듬
 
           response.writeHead(200);
           response.end(template);
@@ -68,34 +82,11 @@ var app = http.createServer(function(request,response){
       } else {
         fs.readdir('./data', function(error, filelist){ // error, filelist 변수이름일 뿐 아무거나 줘도 상관없음
           //console.log(filelist);  // 파일을 일어오는지 확인하기 위해서
-          var title = `Welcome`;
-          var description = `Welcome, node.js`;
-          var list = '<ul>';
-          var i = 0;
-          while(i < filelist.length){
-            list = list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`
-            i = i + 1;
-          }
-
-          list = list+'</ul>';
           fs.readFile(`data/${queryData.id}`, 'utf8', function(err, description){
             var title = queryData.id;
-            var template = `
-            <!doctype html>
-            <html>
-            <head>
-              <title>WEB1 - ${title}</title>
-              <meta charset="utf-8">
-            </head>
-            <body>
-              <h1><a href="/">WEB</a></h1>
-              ${list}
-              <h2>${title}</h2>
-              <p>${description}</p>
-            </body>
-            </html>
-
-            `;
+            var list = templateList(filelist);
+            var template = templateHTML(title, list,`<h2>${title}</h2>
+            <p>${description}</p>`);
 
             response.writeHead(200);    // 웹브라우저가 웹서버에 접속 했을 때 웹서버가 응. 그때 웹서버와 웹브라우저 사이에서 잘 됫는지 아니면 에러가 있는지 아니면 이페이지기 다른 곳으로 이사를 갓는지 이러한 중요한 정보를 기계와 기계가 통신하기 위한 아주 간결한 약속.
             // 200 은 성공적으로 전송
