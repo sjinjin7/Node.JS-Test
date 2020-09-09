@@ -1,0 +1,38 @@
+30강 Node.js - 동기와 비동기 그리고 콜백
+https://opentutorials.org/course/3332/21132
+
+
+30.1
+ synchronous&asynchronous(동기적/ 비동기적)
+
+synchronous ● -> ● -> ● -> ●
+	-일을 순차적(일이 끝나야지만 다음일을 진행)
+asynchronous ● -> ● -> ●
+ 	          ->	 ● ->
+	- 병렬적으로 동시에 여러가지 일을 처리
+	- 효율적이지만 매우 복잡함 
+nodejs는 비동기적 처리하기 위한 좋은 기능을 가지고 있음 
+
+
+
+
+30.2
+동기와 비동기는 어떠한 차이를 가지고 있는가
+https://nodejs.org/dist/latest-v12.x/docs/api/fs.html 해당 문서 참고
+아래의 두개 비교
+- fs.readFile(path[, options], callback) 
+- fs.readFileSync(path[, options])
+
+두개를 이용해서 동기와 비동기 차이 비교
+
+정리 : nodejs성능을 끌어올리기 위해선 비동기를 사용하는 것이 좋음 
+코드가 너무 복잡하고 성능이 대단한것이 필요한 것이 아닌경우 동기 사용해도 무관
+
+30.3
+callback
+
+
+
+
+
+
