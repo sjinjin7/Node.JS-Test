@@ -31,9 +31,19 @@ var app = http.createServer(function(request,response){
 
     if(pathname === '/'){
       if(queryData.id === undefined){
-        fs.readFile(`data/${queryData.id}`, 'utf8', function(err, description){
+        fs.readdir('./data', function(error, filelist){ // error, filelist 변수이름일 뿐 아무거나 줘도 상관없음
+          //console.log(filelist);  // 파일을 일어오는지 확인하기 위해서
           var title = `Welcome`;
           var description = `Welcome, node.js`;
+          var list = '<ul>';
+          var i = 0;
+          while(i < filelist.length){
+            list = list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`
+            i = i + 1;
+          }
+
+          list = list+'</ul>';
+
           var template = `
           <!doctype html>
           <html>
@@ -43,11 +53,7 @@ var app = http.createServer(function(request,response){
           </head>
           <body>
             <h1><a href="/">WEB</a></h1>
-            <ol>
-              <li><a href="/?id=HTML">HTML</a></li>
-              <li><a href="/?id=CSS">CSS</a></li>
-              <li><a href="/?id=Javascript">JavaScript</a></li>
-            </ol>
+            ${list}
             <h2>${title}</h2>
             <p>${description}</p>
           </body>
@@ -57,38 +63,47 @@ var app = http.createServer(function(request,response){
 
           response.writeHead(200);
           response.end(template);
-
         });
+
       } else {
-        fs.readFile(`data/${queryData.id}`, 'utf8', function(err, description){
-          var title = queryData.id;
-          var template = `
-          <!doctype html>
-          <html>
-          <head>
-            <title>WEB1 - ${title}</title>
-            <meta charset="utf-8">
-          </head>
-          <body>
-            <h1><a href="/">WEB</a></h1>
-            <ol>
-              <li><a href="/?id=HTML">HTML</a></li>
-              <li><a href="/?id=CSS">CSS</a></li>
-              <li><a href="/?id=Javascript">JavaScript</a></li>
-            </ol>
-            <h2>${title}</h2>
-            <p>${description}</p>
-          </body>
-          </html>
+        fs.readdir('./data', function(error, filelist){ // error, filelist 변수이름일 뿐 아무거나 줘도 상관없음
+          //console.log(filelist);  // 파일을 일어오는지 확인하기 위해서
+          var title = `Welcome`;
+          var description = `Welcome, node.js`;
+          var list = '<ul>';
+          var i = 0;
+          while(i < filelist.length){
+            list = list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`
+            i = i + 1;
+          }
 
-          `;
+          list = list+'</ul>';
+          fs.readFile(`data/${queryData.id}`, 'utf8', function(err, description){
+            var title = queryData.id;
+            var template = `
+            <!doctype html>
+            <html>
+            <head>
+              <title>WEB1 - ${title}</title>
+              <meta charset="utf-8">
+            </head>
+            <body>
+              <h1><a href="/">WEB</a></h1>
+              ${list}
+              <h2>${title}</h2>
+              <p>${description}</p>
+            </body>
+            </html>
 
-          response.writeHead(200);    // 웹브라우저가 웹서버에 접속 했을 때 웹서버가 응. 그때 웹서버와 웹브라우저 사이에서 잘 됫는지 아니면 에러가 있는지 아니면 이페이지기 다른 곳으로 이사를 갓는지 이러한 중요한 정보를 기계와 기계가 통신하기 위한 아주 간결한 약속.
-          // 200 은 성공적으로 전송
-          response.end(template); //  queryData 결과 값이 화면에 나옴
+            `;
 
+            response.writeHead(200);    // 웹브라우저가 웹서버에 접속 했을 때 웹서버가 응. 그때 웹서버와 웹브라우저 사이에서 잘 됫는지 아니면 에러가 있는지 아니면 이페이지기 다른 곳으로 이사를 갓는지 이러한 중요한 정보를 기계와 기계가 통신하기 위한 아주 간결한 약속.
+            // 200 은 성공적으로 전송
+            response.end(template); //  queryData 결과 값이 화면에 나옴
+
+          });
         });
-      }
+      } // if 종료
 
     } else {
       // 에러창을 표시해주고자함
