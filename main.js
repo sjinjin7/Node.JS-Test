@@ -14,6 +14,7 @@ function templateHTML(title, list, body){
   <body>
     <h1><a href="/">WEB</a></h1>
     ${list}
+    <a href="/create">create</a>
     ${body}
   </body>
   </html>
@@ -58,7 +59,6 @@ var app = http.createServer(function(request,response){
     var pathname = url.parse(_url,true).pathname;
 
 
-
     // url을 분석하는 코드(url.parse(_url, true))가 어떠한 내용을 담는지 확인하기 위해
     //console.log(url.parse(_url, true));
 
@@ -96,8 +96,30 @@ var app = http.createServer(function(request,response){
         });
       } // if 종료
 
-    } else {
-      // 에러창을 표시해주고자함
+    } else if(pathname === '/create'){
+      fs.readdir('./data', function(error, filelist){
+        var title = `WEB - create`;
+        var list = templateList(filelist);
+
+        list = list+'</ul>';
+
+        var template = templateHTML(title, list,`
+          <form action="http://localhost:3000/process_create" method="POST">
+            <p><input type="text" name="title" placeholder="title"></p>
+            <p>
+              <textarea name="description" rows="8" cols="80" placeholder="description"></textarea>
+            </p>
+            <p>
+              <input type = "submit">
+            </p>
+          </form>
+
+          `);
+        response.writeHead(200);
+        response.end(template);
+      });
+
+    }else {
       response.writeHead(404);
       response.end('Not found');
     }
