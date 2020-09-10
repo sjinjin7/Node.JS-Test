@@ -88,7 +88,7 @@ var app = http.createServer(function(request,response){
 
         list = list+'</ul>';
 
-        var template = template.html(title, list,`
+        var html = template.html(title, list,`
           <form action="/create_process" method="POST">
             <p><input type="text" name="title" placeholder="title"></p>
             <p>
