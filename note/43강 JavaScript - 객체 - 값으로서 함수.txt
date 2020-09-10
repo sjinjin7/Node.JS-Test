@@ -1,0 +1,4 @@
+43강 JavaScript - 객체 - 값으로서 함수
+
+Object Oriented Programming(OOP) 객체 지향 프로그래밍
+프로그램 스타일 및 필요 기능
