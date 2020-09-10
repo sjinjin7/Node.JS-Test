@@ -4,7 +4,7 @@ var url = require('url');
 var qs = require('querystring');
 
 // HTML에 대한 template
-function templateHTML(title, list, body){
+function templateHTML(title, list, body, control){
   return `
   <!doctype html>
   <html>
@@ -15,7 +15,7 @@ function templateHTML(title, list, body){
   <body>
     <h1><a href="/">WEB</a></h1>
     ${list}
-    <a href="/create">create</a>
+    ${control}
     ${body}
   </body>
   </html>
@@ -74,7 +74,8 @@ var app = http.createServer(function(request,response){
           list = list+'</ul>';
 
           var template = templateHTML(title, list,`<h2>${title}</h2>
-          <p>${description}</p>`);  // 기존 var template에 비해 로직에 대한 이해가 더 용이(함수의 이름을 통해) & 코드량도 줄어듬
+          <p>${description}</p>`,
+          `<a href="/create">create</a>`);  // 기존 var template에 비해 로직에 대한 이해가 더 용이(함수의 이름을 통해) & 코드량도 줄어듬
 
           response.writeHead(200);
           response.end(template);
@@ -87,7 +88,9 @@ var app = http.createServer(function(request,response){
             var title = queryData.id;
             var list = templateList(filelist);
             var template = templateHTML(title, list,`<h2>${title}</h2>
-            <p>${description}</p>`);
+            <p>${description}</p>`,
+            `<a href="/create">create</a> <a href="/updqte?id=${title}">update</a>`);
+            // updqte url에 쿼리스트링을 통해서 어떠헌 데이터를 수정할 것인지를 설계
 
             response.writeHead(200);    // 웹브라우저가 웹서버에 접속 했을 때 웹서버가 응. 그때 웹서버와 웹브라우저 사이에서 잘 됫는지 아니면 에러가 있는지 아니면 이페이지기 다른 곳으로 이사를 갓는지 이러한 중요한 정보를 기계와 기계가 통신하기 위한 아주 간결한 약속.
             // 200 은 성공적으로 전송
@@ -115,7 +118,7 @@ var app = http.createServer(function(request,response){
             </p>
           </form>
 
-          `);
+          `, '');
         response.writeHead(200);
         response.end(template);
       });
