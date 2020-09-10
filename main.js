@@ -4,6 +4,9 @@ var url = require('url');
 var qs = require('querystring');
 
 var template = require('./lib/template.js');
+var path = require('path');
+// 사용자로부터 경로가 들어오는 모든 곳을 변경해주어야함
+// 외부에서 들어온 정보와, 외부에서 들어온 정보가 밖으로 나갈때 모두 오염될수 있기 때문에, 모든 것을 철저히 의심해야함.
 
 // require 요구하다
 // url(fs,http)이라는 것은 요구 한다는 의미
@@ -56,7 +59,8 @@ var app = http.createServer(function(request,response){
       } else {
         fs.readdir('./data', function(error, filelist){ // error, filelist 변수이름일 뿐 아무거나 줘도 상관없음
           //console.log(filelist);  // 파일을 일어오는지 확인하기 위해서
-          fs.readFile(`data/${queryData.id}`, 'utf8', function(err, description){
+          var filteredId = path.parse(queryData.id).base;
+          fs.readFile(`data/${filteredId}`, 'utf8', function(err, description){
             var title = queryData.id;
             var list = template.list(filelist);
             var html = template.html(title, list,`<h2>${title}</h2>
@@ -127,7 +131,8 @@ var app = http.createServer(function(request,response){
     } else if(pathname === '/update'){
       fs.readdir('./data', function(error, filelist){ // error, filelist 변수이름일 뿐 아무거나 줘도 상관없음
         //console.log(filelist);  // 파일을 일어오는지 확인하기 위해서
-        fs.readFile(`data/${queryData.id}`, 'utf8', function(err, description){
+        var filteredId = path.parse(queryData.id).base;
+        fs.readFile(`data/${filteredId}`, 'utf8', function(err, description){
           var title = queryData.id;
           var list = templateList(filelist);
           var template = templateHTML(title, list,
@@ -183,7 +188,8 @@ var app = http.createServer(function(request,response){
       request.on('end', function(){
           var post = qs.parse(body);
           var id = post.id;
-          fs.unlink(`data/${id}`, function(error){
+          var filteredId = path.parse(id).base;
+          fs.unlink(`data/${filteredId}`, function(error){
             response.writeHead(302,{Location: `/`});
             response.end();
           });
