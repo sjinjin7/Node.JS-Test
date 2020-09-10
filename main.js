@@ -14,6 +14,7 @@ var path = require('path');
 // nodejs가 가지고 있는 수많은 기능들을 비슷한것 끼리 모아둔 것(그룹핑) => 모듈
 // 따라서 require('url')는 url이라는 모듈을 사용할 것이라는 것을 nodejs에게 선언
 // url이라는 모듈은 url이라는 변수를 통해 선언하겟다고 선언
+var sanitizeHtml = require('sanitize-html');
 
 var app = http.createServer(function(request,response){
     var _url = request.url;
@@ -62,13 +63,15 @@ var app = http.createServer(function(request,response){
           var filteredId = path.parse(queryData.id).base;
           fs.readFile(`data/${filteredId}`, 'utf8', function(err, description){
             var title = queryData.id;
+            var sanitizedTitle = sanitizeHtml(title);
+            var sanitizedDescription = sanitizeHtml(description, { allowedTags:['h1']});
             var list = template.list(filelist);
-            var html = template.html(title, list,`<h2>${title}</h2>
-            <p>${description}</p>`,
+            var html = template.html(sanitizedTitle, list,`<h2>${sanitizedTitle}</h2>
+            <p>${sanitizedDescription}</p>`,
             `<a href="/create">create</a>
-             <a href="/update?id=${title}">update</a>
+             <a href="/update?id=${sanitizedTitle}">update</a>
              <form action="delete_process" method="post" onsubmit="asdf">
-              <input type="hidden" name="id" value="${title}">
+              <input type="hidden" name="id" value="${sanitizedTitle}">
               <input type="submit" value="delete">
              </form>`);
             // update url에 쿼리스트링을 통해서 어떠헌 데이터를 수정할 것인지를 설계

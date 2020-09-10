@@ -1,0 +1,25 @@
+{
+  "name": "web2-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sjinjin7/Node.JS-Test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sjinjin7/Node.JS-Test/issues"
+  },
+  "homepage": "https://github.com/sjinjin7/Node.JS-Test#readme",
+  "dependencies": {
+    "sanitize-html": "^1.27.4"
+  }
+}
