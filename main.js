@@ -138,9 +138,12 @@ var app = http.createServer(function(request,response){
           //console.log(post.title);
           var title = post.title;
           var description = post.description;
+          fs.writeFile(`data/${title}`,description, 'utf8', function(err){
+            response.writeHead(302,{Location: `/?id=${title}`});  // 리다이렉트
+            response.end('success');
+          });
       });
-      response.writeHead(200);
-      response.end('success');
+
     }else {
       response.writeHead(404);
       response.end('Not found');
