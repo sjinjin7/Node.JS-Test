@@ -1,0 +1,18 @@
+50강 API
+
+Application Programming Interfae
+는 nodejs가 가지고 있는 기능들을 호출함으로써 동작하게됨
+
+fs.readFile을 생각해보자.
+Nodejs를 만든 개발자가 만듬. 어떤식으로 동작하는지 우리는 모름. Nodejs 개발잘들은 Nodejs를 이요하는 개발자들에게 파일을 읽을때에는 readFile을 사용하라고 사용설명서를 통해서 말하고 있음. 즉 radFile이라는 함수의 이름과 파라미터 리턴값은 Nodejs를 개발한 개발자와 Nodejs를 사용하는 개발자들간의 약속된 조작장치.  이러한 조작장치들을 Interface라고 함.  Nodejs를 사용하는 개발자들은 Interface를 실행시킴으로써 애플리케이션을 만들수 있게됨.
+ 즉, 애플리케이션 프로그래밍을 위해서 사용되는 Interface를 Application Programming Interface라고 한다. 
+
+ Nodejs API 문서 살펴보기
+들어가면 그 해당 버전에서 제공하는 모듈들이 왼쪽에 나열되어 있음. 그 모듈 안으로 들어가보면 그 모듈이 가지고 있는 여러가지 기능들이 검색됨. 
+
+http.createServer를 검색 해보기
+
+대괄호는 생략가능하다는 의미.
+
+signatures 형식
+
