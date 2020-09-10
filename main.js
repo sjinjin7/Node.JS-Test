@@ -89,8 +89,8 @@ var app = http.createServer(function(request,response){
             var list = templateList(filelist);
             var template = templateHTML(title, list,`<h2>${title}</h2>
             <p>${description}</p>`,
-            `<a href="/create">create</a> <a href="/updqte?id=${title}">update</a>`);
-            // updqte url에 쿼리스트링을 통해서 어떠헌 데이터를 수정할 것인지를 설계
+            `<a href="/create">create</a> <a href="/update?id=${title}">update</a>`);
+            // update url에 쿼리스트링을 통해서 어떠헌 데이터를 수정할 것인지를 설계
 
             response.writeHead(200);    // 웹브라우저가 웹서버에 접속 했을 때 웹서버가 응. 그때 웹서버와 웹브라우저 사이에서 잘 됫는지 아니면 에러가 있는지 아니면 이페이지기 다른 곳으로 이사를 갓는지 이러한 중요한 정보를 기계와 기계가 통신하기 위한 아주 간결한 약속.
             // 200 은 성공적으로 전송
@@ -108,7 +108,7 @@ var app = http.createServer(function(request,response){
         list = list+'</ul>';
 
         var template = templateHTML(title, list,`
-          <form action="http://localhost:3000/create_process" method="POST">
+          <form action="/create_process" method="POST">
             <p><input type="text" name="title" placeholder="title"></p>
             <p>
               <textarea name="description" rows="8" cols="80" placeholder="description"></textarea>
@@ -147,7 +147,35 @@ var app = http.createServer(function(request,response){
           });
       });
 
-    }else {
+    } else if(pathname === '/update'){
+      fs.readdir('./data', function(error, filelist){ // error, filelist 변수이름일 뿐 아무거나 줘도 상관없음
+        //console.log(filelist);  // 파일을 일어오는지 확인하기 위해서
+        fs.readFile(`data/${queryData.id}`, 'utf8', function(err, description){
+          var title = queryData.id;
+          var list = templateList(filelist);
+          var template = templateHTML(title, list,
+            `
+            <form action="/update_process" method="POST">
+              <input type="hidden" name="id" value="${title}">
+              <p><input type="text" name="title" placeholder="title" value="${title}"></p>
+              <p>
+                <textarea name="description" rows="8" cols="80" placeholder="description">${description} </textarea>
+              </p>
+              <p>
+                <input type = "submit">
+              </p>
+            </form>
+            `,
+            `<a href="/create">create</a> <a href="/update?id=${title}">update</a>`);
+          // update url에 쿼리스트링을 통해서 어떠헌 데이터를 수정할 것인지를 설계
+
+          response.writeHead(200);    // 웹브라우저가 웹서버에 접속 했을 때 웹서버가 응. 그때 웹서버와 웹브라우저 사이에서 잘 됫는지 아니면 에러가 있는지 아니면 이페이지기 다른 곳으로 이사를 갓는지 이러한 중요한 정보를 기계와 기계가 통신하기 위한 아주 간결한 약속.
+          // 200 은 성공적으로 전송
+          response.end(template); //  queryData 결과 값이 화면에 나옴
+
+        });
+      });
+    } else {
       response.writeHead(404);
       response.end('Not found');
     }
