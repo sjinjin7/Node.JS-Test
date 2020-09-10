@@ -1,6 +1,7 @@
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
+var qs = require('querystring');
 
 // HTML에 대한 template
 function templateHTML(title, list, body){
@@ -104,7 +105,7 @@ var app = http.createServer(function(request,response){
         list = list+'</ul>';
 
         var template = templateHTML(title, list,`
-          <form action="http://localhost:3000/process_create" method="POST">
+          <form action="http://localhost:3000/create_process" method="POST">
             <p><input type="text" name="title" placeholder="title"></p>
             <p>
               <textarea name="description" rows="8" cols="80" placeholder="description"></textarea>
@@ -119,6 +120,27 @@ var app = http.createServer(function(request,response){
         response.end(template);
       });
 
+    } else if(pathname === '/create_process'){
+      var body = '';
+      // request는 createserver의 콜백함수
+      // 이벤트
+      request.on('data', function(data){
+      //  웹 브라우저가 POST방식으로 데이터를 전송할때 데이터가 엄청나게 많으면 그 데이터를 한번에 처리할 경우 컴퓨터에 무리가 감. 그래서 nodejs에서는 POST방식으로 전송되는 데이터가 많을 경우를 대비해서 request.on 방식을 제공하고 있는데 'data'부분은 특정한 양 들을 서버쪽에서 수신할대마다 서버는 콜백함수를 호출하도록 약속 되어있음. 호출할때 data라는 인자를 통해서 수신한 정보를 주기로 약속함.
+        body = body + data;
+
+      });
+      //이벤트
+      request.on('end', function(){
+        // 정보가 들어오다 더이상 들어올 정보가 없으면 해당 콜백함수가 호출 되도록 약속되어 있음. 다시 말해 해당 하뭇에 들어오는 것은 정보 수신이 끝낫다고 바도 됨.
+          // post변수에 전송받은 데이터가 담김
+          var post = qs.parse(body);
+          //console.log(post);
+          //console.log(post.title);
+          var title = post.title;
+          var description = post.description;
+      });
+      response.writeHead(200);
+      response.end('success');
     }else {
       response.writeHead(404);
       response.end('Not found');

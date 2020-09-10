@@ -1,0 +1,19 @@
+34강 App - POST 방식으로 전송된 데이터 받기
+
+
+form action에 기입한 url을 통해 서버가 데이터를 받을 수 있게 하기
+
+
+post방식으로 전송된 데이터를 nodejs안에서 가져오기 위해서는 어떻게 해야하는가?
+'nodejs post data' 검색
+
+
+
+* createServer()는 nodejs로 웹브라우저가 접속이 들어올때마자 createServer에 콜백함수를 nodejs가 호출. 그때 함수에 인자를 2개를 주는데
+
+request 는 요청할대에 웹 바라우저가 요청한 정보들 
+
+response는 응답할때 우리가 웹브라우저에게 전송할 정보들 
+
+
+data와 end 이벤트를 통해 웹바라우저로 전송된 데이터를 가져올수잇고 qs.parse(body)를 통해 정보를 객체화 할 수 있게됨
