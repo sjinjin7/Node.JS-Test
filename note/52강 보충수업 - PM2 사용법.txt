@@ -1,0 +1,39 @@
+52강 보충수업 - PM2 사용법
+
+
+pm2 start main.js --watch
+이럴경우 백그라운드로 몰래 실행되고잇음
+그래스 
+pm2 log
+명령어를 통해서 로그를 보면서 실행
+좀 불편함
+
+
+pm2 list
+pm2 kill (pm2로 켜진걸 모두 꺼버림)
+
+pm2 start main.js --watch --no-daemon
+이럴경우deamon이 아닌 상태로 실행 (백그라운드로 실행될경우 daemon이라고 
+부름)
+해당 명령을 했을때 main.js에 변경이 있을때 바로 로그를 볼 수가 있음. 
+
+즉 pm2실행과 동시에log까지 볼 수 잇음.
+
+그런데 문제는 이경우pm2 list 명령을 햇을때 꺼질때 안꺼질때가 있음.
+이럴경우 pm2 kill을 쳐서 우리가 생성한 프로세서들이 죽음
+
+
+
+
+
+pm2 start main.js --watch --no-daemon
+상태에서 앱에 파일 추가를 했을때 Nodejs가 꺼졋다 다시 켜지게됨. (원하지 않는 상황에서 리셋됨. 이럴 경우 메모리에 올려져 있던 데이터들이 사라짐)  
+이런경우에는 
+pm2 kill 한뒤에
+pm2 start main.js --watch --ignore-watch"data/*" --no-daemon
+(여러 디렉토리를 추가하고싶으면 띄워쓰기 사용
+ex
+data/* data2/*
+)
+명령을 실행 
+이러면 앱에서 파일을 추가했을때 꺼졋다 다시 켜지지 않음
